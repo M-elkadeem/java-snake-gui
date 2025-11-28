@@ -79,15 +79,51 @@ public class Main {
         frame.pack();
 
         Game game = new Game(board,board.getSnk(),scoreLabel);
-      board.setgame
-              (game);
+      board.setgame(game);
 
+
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                game.pausingthegame();
+                if (game.isGameOver()){
+                    System.exit(0);
+                }
+                game.savingdata();
+                System.out.println("Auto-saved!");
+                System.exit(0);
+            }
+        });
         JMenuBar menuBar = Menu.CreatingMenu(frame, board, game);
         frame.setJMenuBar(menuBar);
         frame.setVisible(true );// setting the board to be visible
+        if (!playerName.equals("Anonymous") && SaveLoadManager.saveExists(playerID)) {
+            GameState savedState = SaveLoadManager.loadGame(playerID);
 
+            if (savedState != null) {
+                int choice = JOptionPane.showConfirmDialog(
+                        frame,
+                        "A saved game was found!\n" +
+                                "Player: " + savedState.playerName + "\n" +
+                                "Score: " + savedState.score + "\n" +
+                                "Snake Length: " + savedState.snakeBody.size() + "\n" +
+                                "Saved: " + savedState.saveDateTime + "\n\n" +
+                                "Do you want to continue this game?",
+                        "Load Saved Game",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    game.loadingGame(playerID);
+                } else {
+                    SaveLoadManager.deleteSave(playerID);
+                    System.out.println("Old save deleted. Starting new game.");
+                }
+            }
+        }
         game.start();
 
     }
 }
-

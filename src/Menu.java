@@ -9,28 +9,56 @@ public class Menu {
         // First > creating New Game
         JMenuItem NewGame = new JMenuItem("New Game");
         NewGame.addActionListener(e -> {
+            game.pausingthegame(); // once he chooses that option , the game will stop automatically
             int choice = JOptionPane.showConfirmDialog(
                     frame,
-                    "Start a new game? Current progress will be lost.",
-                    "New Game",
-                    JOptionPane.YES_NO_OPTION
+                    "Start a new game? Current progress will be lost.",  // this is the message we will get once we click on new game option
+                    "New Game",// this will be the header's name of the message we will get
+                    JOptionPane.YES_NO_OPTION  // and in this message , there will be two options to choose
             );
 
             if (choice == JOptionPane.YES_OPTION) {
                 game.restartingtheGame();
+            }else {
+                game.start(); // in case he choosed NO option , the game will start again automatically
             }
         });
-        JMenuItem Continue  = new JMenuItem("Continue");
-        // implementing later >>> there will be two cases of what will be shown
-        // first is continue the game if he paused , in case he is playing
-        // second , continue , if if he is not playing yet >> this will load his game if he and existed player with saving data
 
          JMenuItem Exit = new JMenuItem ("Exit");
-         // will be implemted later
-        // there will be two options for saving and not savin  g
+         Exit.addActionListener(e -> {
+                     game.pausingthegame(); // once he choosed this option , the game will stop automatically
+                     int choice = JOptionPane.showConfirmDialog(
+                             frame,
+                             "Are you sure , that you want to Exit", // this is the message we will get once we click on the exit option
+                             "Exit",// this will be the header's name of the message we will get
+                             JOptionPane.YES_NO_OPTION  // and in this message , there will be two options to choose
+                     );
 
+                     if (choice == JOptionPane.YES_OPTION) {
+                         if ( game.isGameOver()){
+                             System.exit(0);
+                         }
+                         int option = JOptionPane.showConfirmDialog(
+                                 frame,
+                                 "Do you want to save the game ", // this is the message we will get once we click on the exit option
+                                 "Saving",// this will be the header's name of the message we will get
+                                 JOptionPane.YES_NO_OPTION  // and in this message , there will be two options to choose
+                         );
+                         if (option == JOptionPane.YES_OPTION) {
+                             // calling the save function in the next line , he will exit at once
+                              game.savingdata();
+
+                             System.exit(0);
+                         }else {
+                             // here he will just exit without saving any game
+                             System.exit(0);
+                         }
+                     } else {
+                         // here we will just continue the game , again , and that is all , cuz he already choosed NO
+                         game.start();
+                     }
+                 });
         fileMenu.add(NewGame);
-        fileMenu.add(Continue);
         fileMenu.add(Exit);
 
         menuBar.add(fileMenu);

@@ -63,6 +63,8 @@ public class Game {
 
          savePlayerData();// saving the player data
 
+       SaveLoadManager.deleteSave(board.getPerson().getID());// here cuz the player has lost so we need to delete his game from the file
+
          board.repaint();
      }
  }
@@ -73,6 +75,7 @@ public class Game {
                 GameOver = true;
                 timer.stop();
                 savePlayerData();// saving the player data
+               SaveLoadManager.deleteSave(board.getPerson().getID());// here cuz the player has lost so we need to delete his game from the file
                 board.repaint();
                 return; // to not check the other segments , ( only chekc the one u touched )
 
@@ -97,9 +100,14 @@ public class Game {
     public void start(){
         GameRunning = true;
         GameOver = false;
+        board.getPerson().setIsplaying(true);
         timer.start();
     }
 
+    public void pausingthegame (){
+        GameRunning = false;
+        timer.stop();
+    }
     public void togglingpause(){// once he clicks on the pausing button , he will be directed to this method and then the following operation will happen
      if(GameRunning){
          GameRunning = false;
@@ -107,7 +115,6 @@ public class Game {
      }else {
          start();
      }
-
     }
     private void checkInput() {
         board.addKeyListener(new KeyAdapter() {
@@ -137,8 +144,83 @@ public class Game {
         board.repaint();
     }
 
-    private void savingdata (){
+    public  void savingdata (){
+        boolean success = SaveLoadManager.saveGame(board, this, heading);
 
+        if (success) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Game saved successfully!",
+                    "Save Game",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Failed to save game!",
+                    "Save Game",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    public void loadingGame(int playerID) {
+        GameState state = SaveLoadManager.loadGame(playerID);
+
+        if (state == null) {
+            JOptionPane.showMessageDialog(null,
+                    "Failed to load saved game!",
+                    "Load Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Clear current snake body
+        snk.getBody().clear();
+
+        // Restore snake body from saved state
+        for (int[] segment : state.snakeBody) {
+            snk.getBody().add(new point(segment[0], segment[1]));
+        }
+
+        // Restore direction
+        try {
+            heading = Direction.valueOf(state.direction);
+            prevheading = heading;
+        } catch (IllegalArgumentException e) {
+            heading = Direction.NONE;
+            prevheading = Direction.NONE;
+        }
+
+        // Restore player data
+        board.getPerson().setScore(state.score);
+
+        // Restore foods
+        board.getFoods().clear();
+        for (FoodData foodData : state.foods) {
+            Food food = null;
+
+            switch (foodData.type) {
+                case "Normal":
+                    food = new Normalfood(Color.GREEN, foodData.pointValue);
+                    break;
+                case "Golden":
+                    food = new Goldenfood(Color.ORANGE, foodData.pointValue);
+                    break;
+                case "Poison":
+                    food = new Poisonfood(Color.MAGENTA, foodData.pointValue);
+                    break;
+            }
+
+            if (food != null) {
+                food.setPosition(new point(foodData.x, foodData.y));
+                board.getFoods().add(food);
+            }
+        }
+
+        updateScoreDisplay();
+        board.repaint();
+
+        System.out.println("Game loaded successfully!");
     }
     private void processing_the_keys(KeyEvent e)
     {
@@ -149,32 +231,24 @@ public class Game {
                 if (heading == Direction.LEFT || heading == Direction.RIGHT || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.UP;
                 }
-
-               // prevheading = Direction.UP;
                 break;
 
             case KeyEvent.VK_S:
                 if (heading == Direction.LEFT || heading == Direction.RIGHT || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.DOWN;
                 }
-
-               // prevheading=Direction.DOWN;
                 break;
 
             case KeyEvent.VK_A:
                 if (heading == Direction.DOWN || heading == Direction.UP || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.LEFT;
                 }
-
-                // prevheading=Direction.LEFT;
                 break;
 
             case KeyEvent.VK_D:
                 if (heading == Direction.DOWN || heading == Direction.UP || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.RIGHT;
                 }
-
-                // prevheading = Direction.RIGHT;
                 break;
 
             case KeyEvent.VK_SPACE:

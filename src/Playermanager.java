@@ -45,7 +45,7 @@ public class Playermanager {
                         // Found player - update if new score is better
                         int oldScore = Integer.parseInt(parts[2]);
 
-                        if (score > oldScore) {
+                        if (score > oldScore) {  // if this is true , he will save overwrite the old data , other wise , he will just ingore them
                             // New high score! Update
                             String dateTime = getCurrentDateTime();
                             allPlayers.add(id + "," + name + "," + score + "," + dateTime);

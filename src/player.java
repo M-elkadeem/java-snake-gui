@@ -2,9 +2,19 @@ public class player {
     private int score;
     private String name ;
     private int ID;
+    private boolean isplaying;
 
-    public player(int score) {
+    public player(int score ,boolean isplaying) {
         this.score = score;
+        this.isplaying = isplaying;
+    }
+
+    public void setIsplaying(boolean isplaying) {
+        this.isplaying = isplaying;
+    }
+
+    public boolean isIsplaying() {
+        return isplaying;
     }
 
     public String getName() {

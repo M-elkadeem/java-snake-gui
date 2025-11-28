@@ -16,7 +16,7 @@
             this.boardHeight = boardHeight;
 
             this.snk = new snake (boardWidth,boardHeight,tilesize) ;
-            this.person = new player(0);
+            this.person = new player(0 , false );
             foods = new ArrayList<>();
             Creatingfood();
 

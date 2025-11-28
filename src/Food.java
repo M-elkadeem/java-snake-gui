@@ -26,7 +26,9 @@ public abstract  class Food {
     public point getPosition() {
         return position;
     }
-
+    public void setPosition(point position) {
+        this.position = position;
+    }
     public Color getColor() {
         return color;
     }
