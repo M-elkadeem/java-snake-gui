@@ -8,6 +8,7 @@ public class Game {
     private boolean GameOver;
     private Timer timer;
     private Direction heading;
+    private Direction prevheading;
     private snake snk;
     private Board board;
     private JLabel scoreLabel;
@@ -18,6 +19,7 @@ public class Game {
         this.snk = snk;
         this.board = board;
         this.heading = Direction.NONE;// this will be the initial position position of the snake
+        this.prevheading = Direction.NONE;
         this.scoreLabel = scoreLabel;
         GameRunning = true;
         GameOver = false;
@@ -58,6 +60,9 @@ public class Game {
      {
          GameOver = true ;
          timer.stop();
+
+         savePlayerData();// saving the player data
+
          board.repaint();
      }
  }
@@ -67,11 +72,18 @@ public class Game {
             if (head.equals(snk.getBody().get(i))){
                 GameOver = true;
                 timer.stop();
+                savePlayerData();// saving the player data
                 board.repaint();
+                return; // to not check the other segments , ( only chekc the one u touched )
 
             }
         }
  }
+
+    private void savePlayerData() {
+        player p = board.getPerson();
+        Playermanager.savePlayer(p.getID(), p.getName(), p.getScore());
+    }
  public void foodcollision (){
         point head = snk.gethead();
         for (Food food : board.getFoods()){
@@ -105,6 +117,7 @@ public class Game {
             }
         });
         board.setFocusable(true);
+
         board.requestFocusInWindow();
     }
     public void restartingtheGame(){
@@ -123,31 +136,45 @@ public class Game {
         start();
         board.repaint();
     }
+
+    private void savingdata (){
+
+    }
     private void processing_the_keys(KeyEvent e)
     {
+
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
-                if (heading != Direction.DOWN) {  // Can't go opposite direction
+
+            case KeyEvent.VK_W:// up
+                if (heading == Direction.LEFT || heading == Direction.RIGHT || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.UP;
                 }
+
+               // prevheading = Direction.UP;
                 break;
 
             case KeyEvent.VK_S:
-                if (heading != Direction.UP) {
+                if (heading == Direction.LEFT || heading == Direction.RIGHT || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.DOWN;
                 }
+
+               // prevheading=Direction.DOWN;
                 break;
 
             case KeyEvent.VK_A:
-                if (heading != Direction.RIGHT) {
+                if (heading == Direction.DOWN || heading == Direction.UP || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.LEFT;
                 }
+
+                // prevheading=Direction.LEFT;
                 break;
 
             case KeyEvent.VK_D:
-                if (heading != Direction.LEFT) {
+                if (heading == Direction.DOWN || heading == Direction.UP || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.RIGHT;
                 }
+
+                // prevheading = Direction.RIGHT;
                 break;
 
             case KeyEvent.VK_SPACE:
@@ -158,8 +185,11 @@ public class Game {
                     restartingtheGame();
                 }
                 break;
+
         }
     }
+
+
 
     public void setGameRunning(boolean gameRunning) {
         GameRunning = gameRunning;
@@ -176,4 +206,7 @@ public class Game {
     public boolean isGameOver() {
         return GameOver;
     }
+
+
+
 }

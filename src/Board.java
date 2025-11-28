@@ -29,7 +29,7 @@
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            drawingBoard(g);  // Now you can pass g to your method!
+            //drawingBoard(g);  // Now you can pass g to your method!
 
             drawingSnake(g);  // drawing the snake body
 
@@ -41,13 +41,13 @@
 
         }
 
-        public void drawingBoard (Graphics g ){
-            // next is drawing the grid lines for the Game >> it clarify the game work
-            for (int i =0 ; i<boardWidth/tilesize;i++){
-                g.drawLine(i * tilesize, 0, i * tilesize, boardHeight);// drawing the vertical lines
-                g.drawLine(0, i * tilesize, boardWidth, i * tilesize);// drawing the horizontal lines
-            }
-        }
+//        public void drawingBoard (Graphics g ){
+//            // next is drawing the grid lines for the Game >> it clarify the game work
+//            for (int i =0 ; i<boardWidth/tilesize;i++){
+//                g.drawLine(i * tilesize, 0, i * tilesize, boardHeight);// drawing the vertical lines
+//                g.drawLine(0, i * tilesize, boardWidth, i * tilesize);// drawing the horizontal lines
+//            }
+//        }
         public void drawingSnake(Graphics g ){
             g.setColor(Color.BLUE);
             for(point segments :snk.getBody()){
@@ -102,7 +102,7 @@
                 Creatingfood();// creating the new food
 
         }
-        public boolean isFoodPositionInvalid(point newfruit_position){/// //////////////////////////////////////////////////////////////////////////////////////////
+        public boolean isFoodPositionInvalid(point newfruit_position){
             boolean Colliding = false;
                 for(point segment : snk.getBody()){
                     if (newfruit_position.equals(segment)){
@@ -135,7 +135,7 @@
             g.fillRect(0, 0, boardWidth, boardHeight);
 
             // "GAME OVER" text (retro green style)
-            g.setFont(new Font("Courier New", Font.BOLD, 80));
+            g.setFont(new Font("Courier New", Font.BOLD, 0));
             String gameOverText = "GAME OVER";
 
             // Calculate center position
