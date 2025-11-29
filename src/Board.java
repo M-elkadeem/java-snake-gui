@@ -29,7 +29,7 @@
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            //drawingBoard(g);  // Now you can pass g to your method!
+            drawingBoard(g);  // Now you can pass g to your method!
 
             drawingSnake(g);  // drawing the snake body
 
@@ -41,13 +41,13 @@
 
         }
 
-//        public void drawingBoard (Graphics g ){
-//            // next is drawing the grid lines for the Game >> it clarify the game work
-//            for (int i =0 ; i<boardWidth/tilesize;i++){
-//                g.drawLine(i * tilesize, 0, i * tilesize, boardHeight);// drawing the vertical lines
-//                g.drawLine(0, i * tilesize, boardWidth, i * tilesize);// drawing the horizontal lines
-//            }
-//        }
+        public void drawingBoard (Graphics g ){
+            // next is drawing the grid lines for the Game >> it clarify the game work
+            for (int i =0 ; i<boardWidth/tilesize;i++){
+                g.drawLine(i * tilesize, 0, i * tilesize, boardHeight);// drawing the vertical lines
+                g.drawLine(0, i * tilesize, boardWidth, i * tilesize);// drawing the horizontal lines
+            }
+        }
         public void drawingSnake(Graphics g ){
             g.setColor(Color.BLUE);
             for(point segments :snk.getBody()){
@@ -87,7 +87,7 @@
            }
 
             if (person.getScore()>0&& person.getScore() %10 ==0){
-                Food poisonfood = new Poisonfood(Color.MAGENTA, -1 *person.getScore()/2);
+                Food poisonfood = new Poisonfood(Color.MAGENTA, -1 * (person.getScore()/2));
                 poisonfood.generatingfood(boardWidth,boardHeight,tilesize,this);
                 foods.add(poisonfood);
             }

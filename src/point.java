@@ -23,7 +23,7 @@ public class point {
     }
 
     @Override
-    public int hashCode() {
-        return 31 * x + y;
+    public int hashCode() {// we need this function to allow the above function to work correctly other wise any comparison using equal. , will not work properly
+        return 19 * x + y; // u can use any prime number  //  and this function  will just help us to look for the point faster , using the hashcode cuz we when we call equal0. it will call the hashcode function automatically and then go for its bucket and then search in this bucket for the thing we want
     }
 }
