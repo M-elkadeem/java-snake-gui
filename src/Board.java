@@ -134,11 +134,11 @@
             g.setColor(new Color(0, 0, 0, 200));
             g.fillRect(0, 0, boardWidth, boardHeight);
 
-            // "GAME OVER" text (retro green style)
-            g.setFont(new Font("Courier New", Font.BOLD, 0));
+            // drawing game over
+            g.setFont(new Font("Courier New", Font.BOLD, 80));// this will be the size for tha word
             String gameOverText = "GAME OVER";
 
-            // Calculate center position
+            // Calculate center position to let us draw it in the middle
             int textWidth = g.getFontMetrics().stringWidth(gameOverText);
             int x = (boardWidth - textWidth) / 2;
             int y = boardHeight / 2 - 50;

@@ -12,10 +12,10 @@ public abstract  class Food {
         this.pointvalue = pointvalue;
     }
 
-    public void generatingfood (int width , int height , int tailsize , Board board ){
+    public void generatingfood (int width , int height , int tilesize , Board board ){
         do {
-            int x = random.nextInt(width / tailsize);
-            int y = random.nextInt(height / tailsize);
+            int x = random.nextInt(width / tilesize);
+            int y = random.nextInt(height / tilesize);
 // this will generate a random place for the segments  positions
             position = new point(x, y);
         }while(board.isFoodPositionInvalid(position));

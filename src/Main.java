@@ -8,6 +8,10 @@ public class Main {
         int boardWidth = 800;
         int boardHeight = 600;
 
+        int playerID ;
+        boolean valid;
+        while (true){
+            valid = true ;
         String idInput = JOptionPane.showInputDialog(null,
                 "Enter your Player ID:",
                 "Player ID",
@@ -18,8 +22,20 @@ public class Main {
             System.exit(0);  // Exit if cancelled
         }
 
-        int playerID = Integer.parseInt(idInput);
+         playerID = 0 ;
 
+        try {
+            playerID = Integer.parseInt(idInput);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid number!", "Error", JOptionPane.ERROR_MESSAGE);
+            valid = false  ;
+        }
+      if (valid){
+          break;
+      }else {
+          continue ;
+      }
+        }
         String playerName = "";
 
         PlayerData existingData = Playermanager.loadPlayer(playerID);// for loading the data
@@ -50,10 +66,9 @@ public class Main {
                     JOptionPane.INFORMATION_MESSAGE);
         }
         JFrame frame = new JFrame("Snake Game") ;
-        frame.setSize(boardWidth,boardHeight);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// to be able to close the Game from the X \
-        frame.setLocationRelativeTo(null); // to open the Game at the middle of the screen
-        frame.setResizable(true);
+        frame.setResizable(true );
+
        // setting icon image for the Game
         ImageIcon image = new ImageIcon("Snake image.png") ;
         frame.setIconImage(image.getImage());// this is just for changing the Icon image of the game
@@ -61,7 +76,7 @@ public class Main {
 
         JPanel scorePanel = new JPanel();
         scorePanel.setBackground(Color.DARK_GRAY);
-        scorePanel.setPreferredSize(new Dimension(boardWidth, 60));  // 60px tall
+        scorePanel.setPreferredSize(new Dimension(boardWidth,60));  // 60px tall
 
         JLabel scoreLabel = new JLabel("Score: 0    Length: 1");
         scoreLabel.setForeground(Color.WHITE);
@@ -69,6 +84,8 @@ public class Main {
         scorePanel.add(scoreLabel);
 
         Board board = new Board(boardWidth, boardHeight);// once u call this , it will call all the function which are inside the constructor
+
+
        // the next is to set the playe name and the id
         board.getPerson().setID(playerID);
         board.getPerson().setName(playerName);
@@ -77,9 +94,10 @@ public class Main {
         frame.add(scorePanel, BorderLayout.NORTH);  // Score on top
         frame.add(board, BorderLayout.CENTER);       // Game below
         frame.pack();
+        frame.setLocationRelativeTo(null); // to open the Game at the middle of the screen
 
         Game game = new Game(board,board.getSnk(),scoreLabel);
-      board.setgame(game);
+          board.setgame(game);
 
 
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -90,6 +108,7 @@ public class Main {
                 if (game.isGameOver()){
                     System.exit(0);
                 }
+                game.savePlayerData();
                 game.savingdata();
                 System.out.println("Auto-saved!");
                 System.exit(0);
@@ -114,6 +133,7 @@ public class Main {
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE
                 );
+
 
                 if (choice == JOptionPane.YES_OPTION) {
                     game.loadingGame(playerID);

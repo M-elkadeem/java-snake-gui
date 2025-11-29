@@ -77,13 +77,13 @@ public class Game {
                 savePlayerData();// saving the player data
                SaveLoadManager.deleteSave(board.getPerson().getID());// here cuz the player has lost so we need to delete his game from the file
                 board.repaint();
-                return; // to not check the other segments , ( only chekc the one u touched )
+                return; // to not check the other segments , ( only check the one u touched )
 
             }
         }
  }
 
-    private void savePlayerData() {
+    public  void savePlayerData() {
         player p = board.getPerson();
         Playermanager.savePlayer(p.getID(), p.getName(), p.getScore());
     }

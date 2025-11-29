@@ -3,6 +3,7 @@ import java.util.LinkedList;
 public class snake {
    private LinkedList <point> body;
 
+
     public snake() {}
 
     public snake(int width, int height, int tilesize) {
