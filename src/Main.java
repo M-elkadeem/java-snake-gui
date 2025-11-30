@@ -76,7 +76,7 @@ public class Main {
 
         JPanel scorePanel = new JPanel();
         scorePanel.setBackground(Color.DARK_GRAY);
-        scorePanel.setPreferredSize(new Dimension(boardWidth,60));  // 60px tall
+        scorePanel.setPreferredSize(new Dimension(boardWidth,59));  // 60px tall
 
         JLabel scoreLabel = new JLabel("Score: 0    Length: 1");
         scoreLabel.setForeground(Color.WHITE);

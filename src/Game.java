@@ -110,9 +110,12 @@ public class Game {
     }
     public void togglingpause(){// once he clicks on the pausing button , he will be directed to this method and then the following operation will happen
      if(GameRunning){
+         prevheading = heading;
          GameRunning = false;
          timer.stop();
      }else {
+         heading = prevheading;// the reason i created that here is when u stop the game and if u clicked on any other key , it will set the heading to the direction of that key , even though the game is paused
+         // so we had to store the heading before we stop the game and then update it once the game starts again
          start();
      }
     }
