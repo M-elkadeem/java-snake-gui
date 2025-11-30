@@ -5,7 +5,7 @@ import java.awt.Color;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class projecttests {
+public class UnitTests {
 
     // players tests
     @Test
@@ -98,9 +98,6 @@ public class projecttests {
 
 
     // snake tests
-    private Board randomboard() {
-        return new Board(100, 100);
-    }
     @Test
     public void testSnakeInitialization() {
         snake s = new snake(100, 100, 10);
@@ -118,7 +115,7 @@ public class projecttests {
         snake s = new snake(100, 100, 10);
         point oldHead = s.gethead();
 
-        s.move(Direction.UP, randomboard());
+        s.move(Direction.UP);
 
         point newHead = s.gethead();
         assertEquals(oldHead.getX(), newHead.getX());
@@ -130,7 +127,7 @@ public class projecttests {
         snake s = new snake(100, 100, 10);
         point oldHead = s.gethead();
 
-        s.move(Direction.DOWN, randomboard());
+        s.move(Direction.DOWN);
 
         point newHead = s.gethead();
         assertEquals(oldHead.getX(), newHead.getX());
@@ -142,7 +139,7 @@ public class projecttests {
         snake s = new snake(100, 100, 10);
         point oldHead = s.gethead();
 
-        s.move(Direction.LEFT, randomboard());
+        s.move(Direction.LEFT);
 
         point newHead = s.gethead();
         assertEquals(oldHead.getX() - 1, newHead.getX());
@@ -154,7 +151,7 @@ public class projecttests {
         snake s = new snake(100, 100, 10);
         point oldHead = s.gethead();
 
-        s.move(Direction.RIGHT, randomboard());
+        s.move(Direction.RIGHT);
 
         point newHead = s.gethead();
         assertEquals(oldHead.getX() + 1, newHead.getX());
@@ -166,13 +163,13 @@ public class projecttests {
         snake s = new snake(100, 100, 10);
         int oldLength = s.getlength();
 
-        s.move(Direction.RIGHT, randomboard());
+        s.move(Direction.RIGHT);
         assertEquals(oldLength, s.getlength());
-        s.move(Direction.UP, randomboard());
+        s.move(Direction.UP);
         assertEquals(oldLength, s.getlength());
-        s.move(Direction.LEFT, randomboard());
+        s.move(Direction.LEFT);
         assertEquals(oldLength, s.getlength());
-        s.move(Direction.DOWN, randomboard());
+        s.move(Direction.DOWN);
         assertEquals(oldLength, s.getlength());
     }
 
@@ -389,8 +386,8 @@ snake snk  = board.getSnk();
         game.setGameOver(false);
    int num = (300/20) - ((300/20)/2);
          for (int i =0 ;i<num;i++){
-     snk.move(Direction.RIGHT,board);
-     if (i==num-1|| i == num){
+     snk.move(Direction.RIGHT);
+     if (i==num-1){
          game.wallcollision();
      }
      }
@@ -417,9 +414,9 @@ assertTrue(game.isGameOver());
         snk.getBody().add(new point(1, 5));
 
           // then let's move our snake towards one his body segments up and left and down
-        snk.move(Direction.UP,board);
-        snk.move(Direction.LEFT,board);
-        snk.move(Direction.DOWN,board);
+        snk.move(Direction.UP);
+        snk.move(Direction.LEFT);
+        snk.move(Direction.DOWN);
 
         game.selfcollision();
 
@@ -449,10 +446,10 @@ assertTrue(game.isGameOver());
         movesx = Math.abs(xvalue - headx);
         movesy = Math.abs(yvalue - heady);
             for (int i = 0; i < movesx; i++) {
-        snk.move(dx, board);
+        snk.move(dx);
             }
          for (int i = 0; i < movesy; i++) {
-             snk.move(dy, board);
+             snk.move(dy);
          }
         game.foodcollision();
 

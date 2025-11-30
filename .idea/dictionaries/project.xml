@@ -2,6 +2,8 @@
   <dictionary name="project">
     <words>
       <w>headpos</w>
+      <w>playermanager</w>
+      <w>projecttests</w>
       <w>savingdata</w>
       <w>selfcollision</w>
       <w>wallcollision</w>

@@ -10,33 +10,28 @@ public class Main {
 
         int playerID ;
         boolean valid;
-        while (true){
-            valid = true ;
-        String idInput = JOptionPane.showInputDialog(null,
-                "Enter your Player ID:",
-                "Player ID",
-                JOptionPane.QUESTION_MESSAGE);
+        do {
+            valid = true;
+            String idInput = JOptionPane.showInputDialog(null,
+                    "Enter your Player ID:",
+                    "Player ID",
+                    JOptionPane.QUESTION_MESSAGE);
 
-        // the next is a condition if the  player has exited before entering his data
-        if (idInput == null || idInput.trim().isEmpty()) {
-            System.exit(0);  // Exit if cancelled
-        }
+            // the next is a condition if the  player has exited before entering his data
+            if (idInput == null || idInput.trim().isEmpty()) {
+                System.exit(0);  // Exit if cancelled
+            }
 
-         playerID = 0 ;
+            playerID = 0;
 
-        try {
-            playerID = Integer.parseInt(idInput);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Please enter a valid number!", "Error", JOptionPane.ERROR_MESSAGE);
-            valid = false  ;
-        }
-      if (valid){
-          break;
-      }else {
-          continue ;
-      }
-        }
-        String playerName = "";
+            try {
+                playerID = Integer.parseInt(idInput);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid number!", "Error", JOptionPane.ERROR_MESSAGE);
+                valid = false;
+            }
+        } while (!valid);
+        String playerName;
 
         PlayerData existingData = Playermanager.loadPlayer(playerID);// for loading the data
 
@@ -114,7 +109,7 @@ public class Main {
                 System.exit(0);
             }
         });
-        JMenuBar menuBar = Menu.CreatingMenu(frame, board, game);
+        JMenuBar menuBar = Menu.CreatingMenu(frame,game);
         frame.setJMenuBar(menuBar);
         frame.setVisible(true );// setting the board to be visible
         if (!playerName.equals("Anonymous") && SaveLoadManager.saveExists(playerID)) {

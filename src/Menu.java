@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class Menu {
 
-    public static JMenuBar CreatingMenu(JFrame frame, Board board, Game game) {
+    public static JMenuBar CreatingMenu(JFrame frame, Game game) {
         JMenuBar menuBar = new JMenuBar();
 
         JMenu fileMenu = new JMenu("File");

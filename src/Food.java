@@ -2,10 +2,9 @@ import java.util.Random;
 import java.awt.*;
 public abstract  class Food {
     private point position;
-    private Random random = new Random();
-    private Color color ;
-    private int pointvalue;
-    private String type;
+    private final Random random = new Random();
+    private final Color color ;
+    private final int pointvalue;
 
     public Food(Color color, int pointvalue) {
         this.color = color;

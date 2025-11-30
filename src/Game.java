@@ -9,16 +9,14 @@ public class Game {
     private Timer timer;
     private Direction heading;
     private Direction prevheading;
-    private snake snk;
-    private Board board;
-    private JLabel scoreLabel;
-    private int movedelay = 150;
+    private final snake snk;
+    private final Board board;
+    private final JLabel scoreLabel;
 
-    public Game (){}
     public Game(Board board,snake snk,JLabel scoreLabel) {
         this.snk = snk;
         this.board = board;
-        this.heading = Direction.NONE;// this will be the initial position position of the snake
+        this.heading = Direction.NONE;// this will be the initial position  of the snake
         this.prevheading = Direction.NONE;
         this.scoreLabel = scoreLabel;
         GameRunning = true;
@@ -29,6 +27,8 @@ public class Game {
     }
 
     private void setupTimer() {// setting up the timer , where the game will be drawing each its period
+        // java will find out the type by itself
+        var movedelay = 150;
         timer = new Timer(movedelay, e -> Playingthegame());
 
     }
@@ -39,7 +39,7 @@ public class Game {
         }
 
         if (heading != Direction.NONE) {// the function of moving the snake
-            snk.move(heading,board);
+            snk.move(heading);
         }
         wallcollision();
         selfcollision ();
@@ -114,7 +114,7 @@ public class Game {
          GameRunning = false;
          timer.stop();
      }else {
-         heading = prevheading;// the reason i created that here is when u stop the game and if u clicked on any other key , it will set the heading to the direction of that key , even though the game is paused
+         heading = prevheading;// the reason I created that here is when u stop the game and if u clicked on any other key , it will set the heading to the direction of that key , even though the game is paused
          // so we had to store the heading before we stop the game and then update it once the game starts again
          start();
      }
@@ -148,7 +148,7 @@ public class Game {
     }
 
     public  void savingdata (){
-        boolean success = SaveLoadManager.saveGame(board, this, heading);
+        boolean success = SaveLoadManager.saveGame(board, heading);
 
         if (success) {
             JOptionPane.showMessageDialog(
@@ -200,19 +200,12 @@ public class Game {
         // Restore foods
         board.getFoods().clear();
         for (FoodData foodData : state.foods) {
-            Food food = null;
-
-            switch (foodData.type) {
-                case "Normal":
-                    food = new Normalfood(Color.GREEN, foodData.pointValue);
-                    break;
-                case "Golden":
-                    food = new Goldenfood(Color.ORANGE, foodData.pointValue);
-                    break;
-                case "Poison":
-                    food = new Poisonfood(Color.MAGENTA, foodData.pointValue);
-                    break;
-            }
+            Food food = switch (foodData.type) {
+                case "Normal" -> new Normalfood(Color.GREEN, foodData.pointValue);
+                case "Golden" -> new Goldenfood(Color.ORANGE, foodData.pointValue);
+                case "Poison" -> new Poisonfood(Color.MAGENTA, foodData.pointValue);
+                default -> null;
+            };
 
             if (food != null) {
                 food.setPosition(new point(foodData.x, foodData.y));
@@ -274,10 +267,6 @@ public class Game {
 
     public void setGameOver(boolean gameOver) {
         GameOver = gameOver;
-    }
-
-    public boolean isGameRunning() {
-        return GameRunning;
     }
 
     public boolean isGameOver() {

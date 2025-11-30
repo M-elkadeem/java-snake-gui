@@ -9,7 +9,7 @@ public class SaveLoadManager {
 
 
     // Save current game state
-    public static boolean saveGame(Board board, Game game, Direction heading) {
+    public static boolean saveGame(Board board, Direction heading) {
         int playerID = board.getPerson().getID();
 
         Map<Integer, GameState> allSaves = loadAllGames();

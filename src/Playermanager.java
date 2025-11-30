@@ -45,7 +45,7 @@ public class Playermanager {
                         // Found player - update if new score is better
                         int oldScore = Integer.parseInt(parts[2]);
 
-                        if (score > oldScore) {  // if this is true , he will save overwrite the old data , other wise , he will just ingore them
+                        if (score > oldScore) {  // if this is true , he will save overwrite the old data , otherwise , he will just ignore them
                             // New high score! Update
                             String dateTime = getCurrentDateTime();
                             allPlayers.add(id + "," + name + "," + score + "," + dateTime);
@@ -83,32 +83,6 @@ public class Playermanager {
         } catch (IOException e) {
             System.out.println("Error saving players file: " + e.getMessage());
         }
-    }
-
-    public static List<PlayerData> getAllPlayers() {
-        List<PlayerData> players = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length >= 4) {
-                    int id = Integer.parseInt(parts[0]);
-                    String name = parts[1];
-                    int score = Integer.parseInt(parts[2]);
-                    String dateTime = parts[3];
-                    players.add(new PlayerData(id, name, score, dateTime));
-                }
-            }
-        } catch (FileNotFoundException e) {
-            return players;
-        } catch (IOException e) {
-            System.out.println("Error loading players: " + e.getMessage());
-        }
-
-        players.sort((p1, p2) -> Integer.compare(p2.score, p1.score));
-
-        return players;
     }
 
     private static String getCurrentDateTime() {

@@ -19,7 +19,7 @@ public class snake {
  public int getlength (){
         return body.size();// this will return the length of the snake
  }
- public void move(Direction heading , Board board){
+ public void move(Direction heading){
 // in that function , we will make all the modification on the snake whether the moving or the action themselves
      point head = body.getFirst();// this head contains the x and y coordinates
      int headX = head.getX();

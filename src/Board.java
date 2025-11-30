@@ -3,13 +3,13 @@
     import java.util.ArrayList;
 
     public class Board extends JPanel {
-    private int boardWidth;
-     private int boardHeight;
-     private int tilesize = 20;
-     private ArrayList<Food> foods;
+    private final int boardWidth;
+     private final int boardHeight;
+     private final int tilesize = 20;
+     private final ArrayList<Food> foods;
      private Game game;
      snake snk;
-        private player person;
+        private final player person;
 
         public Board( int boardWidth, int boardHeight) {
             this.boardWidth = boardWidth;
