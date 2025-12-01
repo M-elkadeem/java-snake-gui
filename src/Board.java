@@ -21,7 +21,7 @@
             Creatingfood();
 
 
-            setPreferredSize(new Dimension(boardWidth, boardHeight));// here i have added , 20 more , cuz the score panel , will cause one the tilelines to be removed and by that there will not be any need for shrinking
+            setPreferredSize(new Dimension(boardWidth, boardHeight+28));// here i have added , 28 more , cuz the score panel , will cause one the tilelines to be removed and by that there will not be any need for shrinking
            setBackground(Color.BLACK);
 
         }
