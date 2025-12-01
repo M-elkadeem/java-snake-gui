@@ -240,7 +240,6 @@ public class UnitTests {
         assertEquals(1, s.getlength());
     }
 
-
     // board tests
 
     @Test
@@ -458,6 +457,19 @@ assertTrue(game.isGameOver());
         assertNotEquals(board.getFoods().getFirst().getPosition(),snk.gethead());
 
        }
+    @Test
+    public void testEatingPoisonFoodUpdatesScoreCorrectly() {
+        Board board = new Board(300 , 200 );
+        snake snk = new snake(100, 100, 10);
+        player p = board.getPerson();
+        p.setScore(8);
+
+        Food poison = new Poisonfood(Color.RED, -4);
+        board.eaatingfood(poison);
+
+        assertEquals(4, p.getScore());
+    }
+
 }
 
 

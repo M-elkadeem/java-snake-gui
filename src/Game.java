@@ -32,7 +32,7 @@ public class Game {
         timer = new Timer(movedelay, e -> Playingthegame());
 
     }
-    public void  Playingthegame(){
+    public void Playingthegame(){
 
         if(GameOver){
             return;
@@ -85,6 +85,9 @@ public class Game {
 
     public  void savePlayerData() {
         player p = board.getPerson();
+        if (p.getName().equals("Guest")){
+            return;
+        }
         Playermanager.savePlayer(p.getID(), p.getName(), p.getScore());
     }
  public void foodcollision (){
@@ -148,8 +151,10 @@ public class Game {
     }
 
     public  void savingdata (){
+        if (board.getPerson().getName().equals("Guest")){
+            return;
+        }
         boolean success = SaveLoadManager.saveGame(board, heading);
-
         if (success) {
             JOptionPane.showMessageDialog(
                     null,

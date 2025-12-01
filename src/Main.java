@@ -52,7 +52,7 @@ public class Main {
                     JOptionPane.QUESTION_MESSAGE);
 
             if (playerName == null || playerName.trim().isEmpty()) {
-            playerName = "Anonymous";  // this will be the default name
+            playerName = "Guest";  // this will be the default name
        }
 
             JOptionPane.showMessageDialog(null,
@@ -71,7 +71,7 @@ public class Main {
 
         JPanel scorePanel = new JPanel();
         scorePanel.setBackground(Color.DARK_GRAY);
-        scorePanel.setPreferredSize(new Dimension(boardWidth,59));  // 60px tall
+        scorePanel.setPreferredSize(new Dimension(boardWidth,60));
 
         JLabel scoreLabel = new JLabel("Score: 0    Length: 1");
         scoreLabel.setForeground(Color.WHITE);
@@ -94,13 +94,13 @@ public class Main {
         Game game = new Game(board,board.getSnk(),scoreLabel);
           board.setgame(game);
 
-
+// the following is to activate closing using the X sing in the corner
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 game.pausingthegame();
-                if (game.isGameOver()){
+                if (game.isGameOver()||board.getPerson().getName().equals("Guest")){// if the player isGuest , then we will not save his Data
                     System.exit(0);
                 }
                 game.savePlayerData();
@@ -112,7 +112,7 @@ public class Main {
         JMenuBar menuBar = Menu.CreatingMenu(frame,game);
         frame.setJMenuBar(menuBar);
         frame.setVisible(true );// setting the board to be visible
-        if (!playerName.equals("Anonymous") && SaveLoadManager.saveExists(playerID)) {
+        if (!playerName.equals("f") && SaveLoadManager.saveExists(playerID)) {
             GameState savedState = SaveLoadManager.loadGame(playerID);
 
             if (savedState != null) {

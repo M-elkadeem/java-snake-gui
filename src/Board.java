@@ -28,6 +28,7 @@
 
         @Override
         protected void paintComponent(Graphics g) {
+            // paintComponent is triggered by making the JFrame visible, and all calls after that are managed by the repaint() method in the Playingthegame inside the Game class
             super.paintComponent(g);
             drawingBoard(g);  // Now you can pass g to your method!
 
