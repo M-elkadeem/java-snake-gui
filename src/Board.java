@@ -21,7 +21,7 @@
             Creatingfood();
 
 
-            setPreferredSize(new Dimension(boardWidth, boardHeight));
+            setPreferredSize(new Dimension(boardWidth, boardHeight));// here i have added , 20 more , cuz the score panel , will cause one the tilelines to be removed and by that there will not be any need for shrinking
            setBackground(Color.BLACK);
 
         }
@@ -81,7 +81,7 @@
                 normalfood.generatingfood(boardWidth, boardHeight, tilesize, this);// this here will be the board object who called the creatingfood function or to be exact the object who called the eating food function
                 foods.add(normalfood);
             }
-           if (person.getScore()>0&& person.getScore() %5 ==0){
+           if (person.getScore()>0&& person.getScore() %5==0){
                Food goldenfood = new Goldenfood(Color.ORANGE,5);
                goldenfood.generatingfood(boardWidth,boardHeight,tilesize,this);
                foods.add(goldenfood);

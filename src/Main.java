@@ -52,7 +52,7 @@ public class Main {
                     JOptionPane.QUESTION_MESSAGE);
 
             if (playerName == null || playerName.trim().isEmpty()) {
-            playerName = "Guest";  // this will be the default name
+            playerName = "Anonymous";  // this will be the default name
        }
 
             JOptionPane.showMessageDialog(null,
@@ -100,7 +100,7 @@ public class Main {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 game.pausingthegame();
-                if (game.isGameOver()||board.getPerson().getName().equals("Guest")){// if the player isGuest , then we will not save his Data
+                if (game.isGameOver()||board.getPerson().getName().equals("Anonymous")){// if the player isAnonymouse , then we will not save his Data
                     System.exit(0);
                 }
                 game.savePlayerData();

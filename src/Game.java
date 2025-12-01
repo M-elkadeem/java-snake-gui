@@ -37,7 +37,6 @@ public class Game {
         if(GameOver){
             return;
         }
-
         if (heading != Direction.NONE) {// the function of moving the snake
             snk.move(heading);
         }
@@ -85,7 +84,7 @@ public class Game {
 
     public  void savePlayerData() {
         player p = board.getPerson();
-        if (p.getName().equals("Guest")){
+        if (p.getName().equals("Anonymous")){
             return;
         }
         Playermanager.savePlayer(p.getID(), p.getName(), p.getScore());
@@ -151,7 +150,7 @@ public class Game {
     }
 
     public  void savingdata (){
-        if (board.getPerson().getName().equals("Guest")){
+        if (board.getPerson().getName().equals("Anonymous")){
             return;
         }
         boolean success = SaveLoadManager.saveGame(board, heading);
