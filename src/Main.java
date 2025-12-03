@@ -62,7 +62,7 @@ public class Main {
         }
         JFrame frame = new JFrame("Snake Game") ;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// to be able to close the Game from the X \
-        frame.setResizable(true );
+        frame.setResizable(false);
 
        // setting icon image for the Game
         ImageIcon image = new ImageIcon("Snake image.png") ;

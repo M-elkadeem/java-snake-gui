@@ -37,7 +37,11 @@ public class player {
         return score;
     }
     public void update_score(int score){
+
         this.score+=score ;
+        if (this.score < 0){  // this will prevent from becoming negative in case of eating poision food
+            this.score = 0 ;
+        }
     }
 
     public void setScore(int score) {
