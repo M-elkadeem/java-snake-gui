@@ -9,9 +9,17 @@
      private final ArrayList<Food> foods;
      private Game game;
      snake snk;
-        private final player person;
+        private player person;
 
-        public Board( int boardWidth, int boardHeight) {
+        public void setSnk(snake snk) {
+            this.snk = snk;
+        }
+
+        public void setGame(Game game) {
+            this.game = game;
+        }
+
+        public Board(int boardWidth, int boardHeight) {
             this.boardWidth = boardWidth;
             this.boardHeight = boardHeight;
 
@@ -200,5 +208,9 @@
 
         public int getTilesize() {
             return tilesize;
+        }
+
+        public void setPerson(player person) {
+            this.person = person;
         }
     }

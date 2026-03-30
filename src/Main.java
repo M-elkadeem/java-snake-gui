@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
-
 public class Main {
     public static void main(String[] args) {
         int boardWidth = 800;
@@ -13,7 +12,7 @@ public class Main {
         do {
             valid = true;
             String idInput = JOptionPane.showInputDialog(null,
-                    "Enter your Player ID:",
+                    "Enter your Player ID :",
                     "Player ID",
                     JOptionPane.QUESTION_MESSAGE);
 
@@ -21,9 +20,7 @@ public class Main {
             if (idInput == null || idInput.trim().isEmpty()) {
                 System.exit(0);  // Exit if cancelled
             }
-
             playerID = 0;
-
             try {
                 playerID = Integer.parseInt(idInput);
             } catch (NumberFormatException e) {

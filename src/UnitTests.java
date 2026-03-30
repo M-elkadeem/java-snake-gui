@@ -375,9 +375,13 @@ public class UnitTests {
     @Test
     public void testWallCollisionTriggersGameOver() {
 Board board = new Board(300 , 200 );
+
 snake snk  = board.getSnk();
         JLabel randomboard = new JLabel();
-
+        player pl = new player(5,true );
+        pl.setName("mahmoud ");
+        pl.setID(5555);
+        board.setPerson(pl);
         Game game = new Game(board, snk, randomboard);
    board.setgame(game);
 
@@ -397,6 +401,10 @@ assertTrue(game.isGameOver());
     public void testSelfCollisionTriggersGameOver() {
         Board board = new Board(200, 200);
         snake snk = board.getSnk();
+        player pl = new player(5,true );
+        pl.setName("mahmoud ");
+        pl.setID(5555);
+        board.setPerson(pl);
         JLabel randomboard = new JLabel();
         Game game = new Game(board, snk, randomboard);
 
@@ -427,7 +435,8 @@ assertTrue(game.isGameOver());
         Board board = new Board(300 , 200 );
         snake snk  = board.getSnk();
         JLabel randomboard = new JLabel();
-        Game game = new Game(board, snk, randomboard);        board.setgame(game);
+        Game game = new Game(board, snk, randomboard);
+        board.setgame(game);
         player pl = board.getPerson();
         int oldscore = pl.getScore();
         int oldnumberoffoods = board.getFoods().size();

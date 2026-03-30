@@ -12,6 +12,7 @@ public class Game {
     private final snake snk;
     private final Board board;
     private final JLabel scoreLabel;
+    private boolean canChangeDirection = true;
 
     public Game(Board board,snake snk,JLabel scoreLabel) {
         this.snk = snk;
@@ -28,7 +29,7 @@ public class Game {
 
     private void setupTimer() {// setting up the timer , where the game will be drawing each its period
         // java will find out the type by itself
-        var movedelay = 150;
+        var movedelay =100;
         timer = new Timer(movedelay, e -> Playingthegame());
 
     }
@@ -222,32 +223,46 @@ public class Game {
 
         System.out.println("Game loaded successfully!");
     }
+    private void coolingtimerdown(){
+        canChangeDirection = false;
+
+        int directionCooldown = 90;
+        new Timer(directionCooldown, e -> {
+            canChangeDirection = true;
+            ((Timer)e.getSource()).stop();
+        }).start();
+    }
     private void processing_the_keys(KeyEvent e)
     {
+         if(!canChangeDirection) return ;
 
         switch (e.getKeyCode()) {
 
             case KeyEvent.VK_W:// up
                 if (heading == Direction.LEFT || heading == Direction.RIGHT || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.UP;
+                    coolingtimerdown();
                 }
                 break;
 
             case KeyEvent.VK_S:
                 if (heading == Direction.LEFT || heading == Direction.RIGHT || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.DOWN;
+                    coolingtimerdown();
                 }
                 break;
 
             case KeyEvent.VK_A:
                 if (heading == Direction.DOWN || heading == Direction.UP || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.LEFT;
+                    coolingtimerdown();
                 }
                 break;
 
             case KeyEvent.VK_D:
                 if (heading == Direction.DOWN || heading == Direction.UP || heading == Direction.NONE ) {  // Can't go opposite direction
                     heading = Direction.RIGHT;
+                    coolingtimerdown();
                 }
                 break;
 
